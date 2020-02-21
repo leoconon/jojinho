@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<title> Jojinho </title>
+	</head>
+	<body>
+		<div id="container" style="width: 1080px;">
+			<img id="passaro" src="passaro.png" style="position: absolute;width: 150px;">
+			<img id="paisagem" src="paisagem.png" style="width: 100%;">
+		</div>
+
+		<script>
+			var container = document.getElementById('container');
+			var passaro = document.getElementById('passaro');
+			var paisagem = document.getElementById('paisagem');
+			//var canos = [];			
+			
+			var cano = document.createElement("IMG");
+			cano.src = "cano.png";
+			cano.style.position = "absolute";
+			cano.style.top = "289px";
+			container.insertBefore(cano, paisagem);
+
+			function doCano() {
+								
+			}
+		</script>
+	</body>
+</html>
