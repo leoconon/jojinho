@@ -3,26 +3,103 @@
 		<title> Jojinho </title>
 	</head>
 	<body>
-		<div id="container" style="width: 1080px;">
-			<img id="passaro" src="passaro.png" style="position: absolute;width: 150px;">
-			<img id="paisagem" src="paisagem.png" style="width: 100%;">
+		<div id="container">
+			<img id="passaro" src="passaro.png">
+			<img id="paisagem" src="paisagem.png">
 		</div>
 
 		<script>
-			var container = document.getElementById('container');
-			var passaro = document.getElementById('passaro');
-			var paisagem = document.getElementById('paisagem');
-			//var canos = [];			
-			
-			var cano = document.createElement("IMG");
-			cano.src = "cano.png";
-			cano.style.position = "absolute";
-			cano.style.top = "289px";
-			container.insertBefore(cano, paisagem);
+			var passaro = {
+				node: document.getElementById('passaro'),
+				top: 0,
+				rotation: 0,
+				aceleracao: 0,
+				setTop: function(top) {
+					this.top = top;
+					this.node.style.top = top + "px";
+				},
+				setRotation: function(rotate) {
+					this.rotation = rotate;
+					this.node.style.transform = `rotate(${rotate}deg)`;
+				}
+			}
+
+			var container = {
+				node: document.getElementById('container'),
+			}
+
+			var paisagem = {
+				node: document.getElementById('paisagem'),
+			}
+
+			var canos = [];
+
+			// GRAVIDADE DO PASSARINHO
+			setInterval(() => {
+				canos.forEach(c => {
+					c.setLeft(c.left - 1);
+				})
+				if (passaro.top < 500) {
+					passaro.setTop(passaro.top + passaro.aceleracao);
+					passaro.aceleracao += 0.02;
+				}
+				if (passaro.rotation <= 90) {
+					passaro.setRotation(passaro.rotation + .5);
+				}
+			});
+
+			setInterval(() => {
+				let cano = doCano();
+				container.node.insertBefore(cano.node, paisagem.node);
+				canos.push(cano);
+			}, 1500);
 
 			function doCano() {
-								
+				let cano = document.createElement("IMG");
+				cano.src = "cano.png";
+				cano.style.position = "absolute";
+				cano.style.top = "289px";
+				cano.style.left = "1080px";
+				cano.style.width = "117px";
+
+				return {
+					node: cano,
+					left: 1080,
+					setLeft: function(left) {
+						this.left = left;
+						this.node.style.left = left + 'px';
+					}
+				}
 			}
+
+			window.addEventListener("keypress", (e) => {
+				if (e.charCode === 32) {
+					passaro.setTop(passaro.top - 70);
+					passaro.aceleracao = 0;
+					passaro.setRotation(-45);
+				}
+			});
+
+
 		</script>
+
+		<style type="text/css">
+			#container {
+				width: 1080px;
+				overflow: hidden;
+				position: relative;
+			}
+
+			#passaro {
+				position: absolute;
+				width: 100px;
+				border-radius: 50%;
+				left: 150px;
+			}
+
+			#paisagem {
+				width: 100%;
+			}
+		</style>
 	</body>
 </html>
