@@ -1,11 +1,20 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<title> Jojinho </title>
 	</head>
 	<body>
 		<div id="container">
-			<img id="passaro" src="passaro.png">
-			<img id="paisagem" src="paisagem.png">
+			<div id="passaro" style="">
+				<div id="passaro_container">
+					<div id="asa"></div>
+					<div id="olho"></div>
+					<div id="iris"></div>
+					<div id="bico-up"></div>
+					<div id="bico-down"></div>
+				</div>
+			</div>
+			<img id="paisagem" src="paisagem.png"/>
 		</div>
 
 		<script>
@@ -38,6 +47,9 @@
 			setInterval(() => {
 				canos.forEach(c => {
 					c.setLeft(c.left - 1);
+					if (c.left < 0) {
+						//container.node.removeChild(c.node);
+					}
 				})
 				if (passaro.top < 500) {
 					passaro.setTop(passaro.top + passaro.aceleracao);
@@ -48,6 +60,7 @@
 				}
 			});
 
+			// CRIAÇÃO DOS CANOS
 			setInterval(() => {
 				let cano = doCano();
 				container.node.insertBefore(cano.node, paisagem.node);
@@ -91,10 +104,70 @@
 			}
 
 			#passaro {
+				width: 64px;
+				height: 40px;
 				position: absolute;
-				width: 100px;
+				left: 83px;
 				border-radius: 50%;
-				left: 150px;
+				background-color: #ffc90e;
+			}
+
+			#passaro #passaro_container {
+				position: relative;
+				width: 100%;
+				height: 100%;
+			}
+
+			#passaro #asa {
+				width: 35px;
+				height: 20px;
+				background-color: #fff200;
+				border-radius: 50%;
+				position: absolute;
+				top: 17px;
+				left: 12px;
+			}
+
+			#passaro #olho {
+				height: 12px;
+				width: 8px;
+				background-color: white;
+				border-radius: 50%;
+				top: 8px;
+				position: absolute;
+				left: 48px;
+			}
+
+			#passaro #iris {
+				height: 4px;
+				width: 4px;
+				background-color: black;
+				border-radius: 50%;
+				top: 12px;
+				position: absolute;
+				left: 50px;
+			}
+
+			#passaro #bico-up {
+				width: 18px;
+				height: 6px;
+				background-color: #ff8028;
+				position: absolute;
+				top: 17px;
+				left: 59px;
+				border-radius: 11px;
+				transform: rotate(9deg);
+			}
+
+			#passaro #bico-down {
+				width: 18px;
+				height: 6px;
+				background-color: #ff8028;
+				position: absolute;
+				top: 19px;
+				left: 59px;
+				border-radius: 11px;
+				transform: rotate(-11deg);
 			}
 
 			#paisagem {
